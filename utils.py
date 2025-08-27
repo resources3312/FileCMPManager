@@ -30,7 +30,7 @@ class FileCMPManager:
         return tuple([f"{dirPath}/{filename}" for filename in listdir(dirPath)])
 
     @staticmethod
-    def getMinDirectory(dirPath1: str, dirPath2: str) -> int:
+    def getLowDirectory(dirPath1: str, dirPath2: str) -> int:
         try:
             len1 = FileCMPManager.getFilesCount(dirPath1)
             len2 = FileCMPManager.getFilesCount(dirPath2)
@@ -41,6 +41,6 @@ class FileCMPManager:
     def cmpDirectoryContent(dirPath1, dirPath2) -> list:
         dirNames1 = FileCMPManager.getFilenamesOfDirectory(dirPath1)
         dirNames2 = FileCMPManager.getFilenamesOfDirectory(dirPath2)
-        return any(FileCMPManager.cmpFilePair(dirNames1[i], dirNames2[i]) for i in range(FileCMPManager.getMinDirectory(dirPath1, dirPath2))) if isdir(dirPath1) and isdir(dirPath2) else False
+        return any(FileCMPManager.cmpFilePair(dirNames1[i], dirNames2[i]) for i in range(FileCMPManager.getLowDirectory(dirPath1, dirPath2))) if isdir(dirPath1) and isdir(dirPath2) else False
 
     
