@@ -1,8 +1,6 @@
 from os import listdir
 from os.path import isfile, isdir
 from xxhash import xxh64
-from time import time
-
 
 
 class FileCMPManager:
@@ -37,7 +35,8 @@ class FileCMPManager:
             return len1 if len1 < len2 else len2
 
         except: return -1
-    
+
+    @staticmethod
     def cmpDirectoryContent(dirPath1, dirPath2) -> list:
         dirNames1 = FileCMPManager.getFilenamesOfDirectory(dirPath1)
         dirNames2 = FileCMPManager.getFilenamesOfDirectory(dirPath2)
