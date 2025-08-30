@@ -4,16 +4,7 @@ from xxhash import xxh64
 
 
 
-class FileCMPManager:
-    
-    @staticmethod
-    def getFilesCount(dir_path: str) -> int:
-        try: return len(listdir(dir_path))
-        except: return -1
-    
-    @staticmethod
-    def getFilenamesOfDirectory(dirPath: str) -> tuple:
-        return tuple([f"{dirPath}/{filename}" for filename in listdir(dirPath)])
+class BytesCMPManager:
     
     @staticmethod
     def getRawBytesCheckSum(buffer: bytes) -> bin:
@@ -23,8 +14,11 @@ class FileCMPManager:
     
     @staticmethod
     def cmpByteArrayPair(buffer_1: bytes, buffer_2: bytes) -> bool:
-        return FileCMPManager.getRawBytesCheckSum(buffer_1) == FileCMPManager.getRawBytesCheckSum(buffer_2)
-    
+        return BytesCMPManager.getRawBytesCheckSum(buffer_1) == BytesCMPManager.getRawBytesCheckSum(buffer_2)
+
+
+class FileCMPManager:
+
     @staticmethod
     def getFileCheckSum(path: str, chunk_size=4096) -> bin:
         try:
@@ -37,7 +31,13 @@ class FileCMPManager:
     def cmpFilePair(path_1: str, path_2: str) -> bool:
         return FileCMPManager.getFileCheckSum(path_1) == FileCMPManager.getFileCheckSum(path_2) if isfile(path_1) and isfile(path_2) else False
     
+    @staticmethod
+    def getFilesCount(dirPath: str) -> int:
+        try: return len(listdir(dirPath))
+        except: return -1
     
+    def getFilenamesOfDirectory(dirPath: str) -> tuple:
+        return tuple([f"{dirPath}/{filename}" for filename in listdir(dirPath)])
 
     @staticmethod
     def getLowDirectory(dirPath1: str, dirPath2: str) -> int:
@@ -53,3 +53,6 @@ class FileCMPManager:
         dirNames1 = FileCMPManager.getFilenamesOfDirectory(dirPath1)
         dirNames2 = FileCMPManager.getFilenamesOfDirectory(dirPath2)
         return any(FileCMPManager.cmpFilePair(dirNames1[i], dirNames2[i]) for i in range(FileCMPManager.getLowDirectory(dirPath1, dirPath2))) if isdir(dirPath1) and isdir(dirPath2) else False
+
+
+
