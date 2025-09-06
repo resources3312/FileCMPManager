@@ -28,7 +28,7 @@ class MenuIcon(QPushButton):
 
 
 class TitleLabel(QLabel):
-    def __init__(self, text="", size=QSize(375, 50)):
+    def __init__(self, text='', size=QSize(375, 50)):
         super().__init__()
 
         self.__size: QSize = size
