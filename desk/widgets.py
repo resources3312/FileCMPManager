@@ -8,7 +8,7 @@ from PyQt6.QtCore import Qt, QSize
 
 
 class TitleLabel(QLabel):
-    def __init__(self, text="", size=QSize(375, 50)):
+    def __init__(self, text='', size=QSize(375, 50)):
         super().__init__()
 
         self.__size = size
