@@ -65,11 +65,4 @@ class FileCMPManager:
         dirNames2 = FileCMPManager.getFilenamesOfDirectory(dirPath2)
         return any(FileCMPManager.cmpFilePair(dirNames1[i], dirNames2[i]) for i in range(FileCMPManager.getLowDirectory(dirPath1, dirPath2))) if isdir(dirPath1) and isdir(dirPath2) else False
 
-@timer
-def test():
-    print("Copy" if FileCMPManager.cmpFilePair("./testFiles/im_1.jpg", "./testFiles/im_2.jpg") else "No copy")
 
-def main() -> None:
-    test()
-
-if __name__ == '__main__': main()

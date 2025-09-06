@@ -20,7 +20,9 @@ class MenuIcon(QPushButton):
 
     def __setDefaultStyle(self) -> None:
         self.setFixedSize(self.__size)
+        self.setStyleSheet("background-color: none; border: none;")
         self.setToolTip(self.__title)
+        self.setIconSize(self.__size)
         self.setIcon(QIcon(self.__iconPath))
 
     def runUtil(self) -> None:
@@ -81,8 +83,10 @@ class ApplicationGUI(QMainWindow):
         
         self.widget: QWidget = QWidget()
         self.layout: QVBoxLayout = QVBoxLayout()
+        self.setFixedSize(750, 500)
 
-        self.label: MenuIcon = MenuIcon(utilObj=TitleLabel("Title Label"), title="Title Label", iconPath="./res/icon.ico")
+        self.label: MenuIcon = MenuIcon(utilObj=TitleLabel("Title Label"), title="Title Label", iconPath="./res/fileSelected.ico")
+        self.label.clicked.connect(lambda: print("Clicked")) 
         
         self.layout.addWidget(self.label)
 
