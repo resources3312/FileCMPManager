@@ -17,6 +17,7 @@ from utils import FileCMPManager
 from widgets import *
 
 
+
 class CheckSumCalculator(QDialog):
     def __init__(self):
         super().__init__()
@@ -49,21 +50,20 @@ class CheckSumCalculator(QDialog):
         self.layout.addWidget(self.outputEntry)
 
         self.setLayout(self.layout)
-        
-        self.exec()
+
 
     def calculateCheckSum(self):
         try:
             self.fileSelectButton.setWaitStyle()
-            
+
             self.fileNameLabel.setText("Choose file to get hash")
             self.outputEntry.clear()
 
             path = QFileDialog.getOpenFileName(self, "Выберите файл", "")
 
             self.fileNameLabel.setText(path[0].split("/")[len(path[0].split("/")) - 1])
-            self.outputEntry.setText(FileCMPManager.getFileCheckSum(path=path[0], formatHex=True))    
-            
+            self.outputEntry.setText(FileCMPManager.getFileCheckSum(path=path[0], formatHex=True))
+
             self.fileSelectButton.setSelectedStyle()
         
         except:

@@ -7,12 +7,32 @@ from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt, QSize
 
 
+class MenuIcon(QPushButton):
+    def __init__(self, utilObj, title: str, iconPath: str, size=QSize(200, 200)):
+        super().__init__()
+
+        self.__utilObj = utilObj
+        self.__size: QSize = size
+        self.__title: str = title
+        self.__iconPath: str = iconPath
+
+        self.__setDefaultStyle()
+
+    def __setDefaultStyle(self) -> None:
+        self.setFixedSize(self.__size)
+        self.setToolTip(self.__title)
+        self.setIcon(QIcon(self.__iconPath))
+
+    def runUtil(self) -> None:
+        self.__utilObj.exec()
+
+
 class TitleLabel(QLabel):
     def __init__(self, text="", size=QSize(375, 50)):
         super().__init__()
 
-        self.__size = size
-        self.__text = text
+        self.__size: QSize = size
+        self.__text: str = text
 
         self.setFixedSize(self.__size)
         self.setStyleSheet("font-weight: bold; font-size: 30px;")
@@ -21,7 +41,6 @@ class TitleLabel(QLabel):
 
 
 class FileSelectButton(QPushButton):
-    
     def __init__(self, size=QSize(200, 200), crossColor="#222222", backgroundColor="#cccccc"):
         super().__init__()
 
@@ -60,13 +79,11 @@ class ApplicationGUI(QMainWindow):
         super().__init__()
         self.setWindowTitle("Отладка виджета FileSelectButton")
         
-        self.widget = QWidget()
-        self.layout = QVBoxLayout()
+        self.widget: QWidget = QWidget()
+        self.layout: QVBoxLayout = QVBoxLayout()
 
-        self.label = TitleLabel("Title Label")
+        self.label: MenuIcon = MenuIcon(utilObj=TitleLabel("Title Label"), title="Title Label", iconPath="./res/icon.ico")
         
-#        self.btn.clicked.connect(self.btn.switchStyle)
-
         self.layout.addWidget(self.label)
 
         self.widget.setLayout(self.layout)
