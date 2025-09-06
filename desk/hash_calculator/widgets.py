@@ -13,7 +13,7 @@ class FileSelectButton(QPushButton):
         self.__crossColor: str = crossColor
 
         self.__filePath: str = ""
-        self.setSelectedStyle()
+        self.__setSelectedStyle()
     
     def __clearWidget(self) -> None:
         self.setText("")
@@ -21,28 +21,21 @@ class FileSelectButton(QPushButton):
         self.setIconSize(QSize(0, 0))
         self.setIcon(QIcon())
 
-    def setWaitStyle(self) -> None:
+    def __setWaitStyle(self) -> None:
         self.__clearWidget()
         self.setText("+")
         self.setFixedSize(self.__size)
         self.setStyleSheet(f"color: {self.__crossColor}; background-color: {self.__backgroundColor}; text-align: center; font-size: 150px; padding-bottom: 25px; border: none;")
-    
-    def setSelectedStyle(self) -> None:
+
+    def __setSelectedStyle(self) -> None:
         self.__clearWidget()
         self.setFixedSize(self.__size)
         self.setIconSize(self.__size)
         self.setIcon(QIcon("./res/fileSelected.ico"))
   
+
     def switchStyle(self) -> None:
-        if self.text(): self.setSelectedStyle()
-        else: self.setWaitStyle()
-
-    def getFilePath(self) -> str:
-        return self.__filePath
-    
-    def setFilePath(self, path: str) -> None:
-        self.__filePath = path
-
+        self.__setSelectedStyle() if self.text() else self.__setWaitStyle()
 
 
 

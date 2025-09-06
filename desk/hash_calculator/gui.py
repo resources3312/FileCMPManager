@@ -25,7 +25,7 @@ class CheckSumCalculator(QMainWindow):
         self.setWindowTitle("FileCMP Manager | Hash calculator")
         self.setFixedSize(400, 600)
         self.setStyleSheet("background-color: #dddddd;")
-        self.setWindowIcon(QIcon("icon.ico"))
+        self.setWindowIcon(QIcon("res/icon.ico"))
 
         self.bufferSize: int = 0
 
