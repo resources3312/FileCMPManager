@@ -26,9 +26,7 @@ class CheckSumCalculator(QDialog):
         self.setFixedSize(400, 600)
         self.setStyleSheet("background-color: #dddddd;")
         self.setWindowIcon(QIcon("res/icon.ico"))
-
-        self.bufferSize: int = 0
-
+        
         self.layout = QVBoxLayout()
 
         self.fileSelectButton = FileSelectButton()
