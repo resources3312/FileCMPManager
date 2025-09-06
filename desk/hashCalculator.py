@@ -71,11 +71,3 @@ class CheckSumCalculator(QDialog):
             self.fileNameLabel.setText("Choose file to get hash")
 
 
-
-def main() -> None:
-    app = QApplication(argv)
-    interface = CheckSumCalculator()
-    interface.show()
-    app.exec()
-
-if __name__ == '__main__': main()
