@@ -1,7 +1,23 @@
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton)
+from PyQt6.QtWidgets import (
+QApplication, QMainWindow, QWidget,
+QVBoxLayout,
+QLabel, QPushButton)
+
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt, QSize
 
+
+class TitleLabel(QLabel):
+    def __init__(self, text="", size=QSize(375, 50)):
+        super().__init__()
+
+        self.__size = size
+        self.__text = text
+
+        self.setFixedSize(self.__size)
+        self.setStyleSheet("font-weight: bold; font-size: 30px;")
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignHCenter)
+        self.setText(self.__text)
 
 
 class FileSelectButton(QPushButton):
@@ -39,7 +55,6 @@ class FileSelectButton(QPushButton):
         self.setSelectedStyle() if self.text() else self.setWaitStyle()
 
 
-
 class ApplicationGUI(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -48,17 +63,17 @@ class ApplicationGUI(QMainWindow):
         self.widget = QWidget()
         self.layout = QVBoxLayout()
 
-        self.btn = FileSelectButton()
+        self.label = TitleLabel("Title Label")
         
-        self.btn.clicked.connect(self.btn.switchStyle)
+#        self.btn.clicked.connect(self.btn.switchStyle)
 
-        self.layout.addWidget(self.btn)
+        self.layout.addWidget(self.label)
 
         self.widget.setLayout(self.layout)
         self.setCentralWidget(self.widget)
 
 if __name__ == '__main__':
     app = QApplication([])
-    gui = ApplicationGUI()
-    gui.show()
+    interface = ApplicationGUI()
+    interface.show()
     app.exec()

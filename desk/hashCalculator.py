@@ -10,14 +10,14 @@ QVBoxLayout, QHBoxLayout, QGridLayout, QFormLayout,
 
 QLabel, QLineEdit, QPushButton, QComboBox, QDockWidget, QListWidget,
 
-QProgressBar, QFileDialog
+QProgressBar, QFileDialog, QDialog
 )
 
 from utils import FileCMPManager
-from widgets import FileSelectButton
+from widgets import *
 
 
-class CheckSumCalculator(QMainWindow):
+class CheckSumCalculator(QDialog):
     def __init__(self):
         super().__init__()
         
@@ -28,13 +28,11 @@ class CheckSumCalculator(QMainWindow):
 
         self.bufferSize: int = 0
 
-        self.widget = QWidget()
-
         self.layout = QVBoxLayout()
 
         self.fileSelectButton = FileSelectButton()
 
-        self.fileNameLabel = QLabel()
+        self.fileNameLabel = TitleLabel()
         self.fileNameLabel.setFixedSize(375, 50)
         self.fileNameLabel.setStyleSheet("font-weight: bold; font-size: 30px;")
         self.fileNameLabel.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignHCenter)
@@ -50,8 +48,9 @@ class CheckSumCalculator(QMainWindow):
         self.layout.addWidget(self.fileNameLabel, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.outputEntry)
 
-        self.widget.setLayout(self.layout)
-        self.setCentralWidget(self.widget)
+        self.setLayout(self.layout)
+        
+        self.exec()
 
     def calculateCheckSum(self):
         try:
@@ -75,8 +74,8 @@ class CheckSumCalculator(QMainWindow):
 
 def main() -> None:
     app = QApplication(argv)
-    gui = CheckSumCalculator()
-    gui.show()
+    interface = CheckSumCalculator()
+    interface.show()
     app.exec()
 
 if __name__ == '__main__': main()
