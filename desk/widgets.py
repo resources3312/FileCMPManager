@@ -7,6 +7,7 @@ from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt, QSize
 
 
+
 class MenuIcon(QPushButton):
     def __init__(self, utilObj, title: str, iconPath: str, size=QSize(200, 200)):
         super().__init__()
@@ -21,8 +22,8 @@ class MenuIcon(QPushButton):
     def __setDefaultStyle(self) -> None:
         self.setFixedSize(self.__size)
         self.setStyleSheet("background-color: none; border: none;")
-        self.setToolTip(self.__title)
         self.setIconSize(self.__size)
+        self.setToolTip(self.__title)
         self.setIcon(QIcon(self.__iconPath))
 
     def runUtil(self) -> None:
@@ -50,7 +51,6 @@ class FileSelectButton(QPushButton):
         self.__backgroundColor: str = backgroundColor
         self.__crossColor: str = crossColor
 
-        self.__filePath: str = ""
         self.setWaitStyle()
     
     def __clearWidget(self) -> None:
