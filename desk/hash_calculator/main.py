@@ -1,5 +1,4 @@
 from sys import argv
-from typing import Union
 
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
@@ -15,7 +14,7 @@ QProgressBar, QFileDialog
 )
 
 from utils import FileCMPManager
-
+from widgets import FileSelectButton
 
 
 class CheckSumCalculator(QMainWindow):
@@ -33,9 +32,7 @@ class CheckSumCalculator(QMainWindow):
 
         self.layout = QVBoxLayout()
 
-        self.getFileButton = QPushButton("+")
-        self.getFileButton.setStyleSheet("color: #222222; background-color: #cccccc; text-align: center; font-size: 150px; padding-bottom: 25px; border: none;")
-        self.getFileButton.setFixedSize(200, 200)
+        self.fileSelectButton = FileSelectButton()
 
         self.fileNameLabel = QLabel()
         self.fileNameLabel.setFixedSize(375, 50)
@@ -44,12 +41,12 @@ class CheckSumCalculator(QMainWindow):
         self.fileNameLabel.setText("Choose file to get hash")
 
         self.outputEntry = QLineEdit()
-        self.outputEntry.setPlaceholderText("Enter the path to file")
+        self.outputEntry.setPlaceholderText("Hash is here")
         self.outputEntry.setReadOnly(True)
 
-        self.getFileButton.clicked.connect(self.calculateCheckSum)
+        self.fileSelectButton.clicked.connect(self.calculateCheckSum)
 
-        self.layout.addWidget(self.getFileButton, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.fileSelectButton, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.fileNameLabel, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.outputEntry)
 
@@ -58,15 +55,21 @@ class CheckSumCalculator(QMainWindow):
 
     def calculateCheckSum(self):
         try:
+            self.fileSelectButton.setWaitStyle()
+            
             self.fileNameLabel.setText("Choose file to get hash")
             self.outputEntry.clear()
 
             path = QFileDialog.getOpenFileName(self, "Выберите файл", "")
 
             self.fileNameLabel.setText(path[0].split("/")[len(path[0].split("/")) - 1])
-            self.outputEntry.setText(FileCMPManager.getFileCheckSum(path=path[0], formatHex=True))
-
-        except: self.fileNameLabel.setText("Choose file to get hash")
+            self.outputEntry.setText(FileCMPManager.getFileCheckSum(path=path[0], formatHex=True))    
+            
+            self.fileSelectButton.setSelectedStyle()
+        
+        except:
+            self.fileSelectButton.setWaitStyle()
+            self.fileNameLabel.setText("Choose file to get hash")
 
 
 
